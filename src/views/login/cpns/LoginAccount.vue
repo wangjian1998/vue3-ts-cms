@@ -1,6 +1,6 @@
 <template>
   <div class="login-account">
-    <el-form :rules="rules" :model="account" ref="formRef">
+    <el-form :model="account" ref="formRef" :rules="rules">
       <el-form-item label="账号" prop="name">
         <el-input v-model="account.name"></el-input>
       </el-form-item>
@@ -19,6 +19,7 @@ import { ElForm } from 'element-plus/lib/components'
 import { defineComponent, reactive, ref } from 'vue'
 import LocalCache from '@/utils/cache'
 import { useStore } from 'vuex'
+import { formRule } from '@/components/rules'
 
 export default defineComponent({
   setup() {
@@ -29,22 +30,24 @@ export default defineComponent({
     })
 
     const rules = {
-      name: [
-        { required: true, trigger: 'blur', message: '请输入用户名' },
-        {
-          pattern: /^[a-z0-9]{5,10}$/,
-          trigger: 'blur',
-          message: '用户名长度为5~10个字符'
-        }
-      ],
-      password: [
-        { required: true, trigger: 'blur', message: '请输入密码' },
-        {
-          pattern: /^[a-z0-9]{3,}$/,
-          trigger: 'blur',
-          message: '请输入3位以上密码'
-        }
-      ]
+      name: formRule('name', true),
+      password: formRule('password', true)
+      //  name: [
+      //   { required: true, trigger: 'blur', message: '请输入用户名' },
+      //   {
+      //     pattern: /^[a-z0-9]{5,10}$/,
+      //     trigger: 'blur',
+      //     message: '用户名长度为5~10个字符'
+      //   }
+      // ],
+      // password: [
+      //   { required: true, trigger: 'blur', message: '请输入密码' },
+      //   {
+      //     pattern: /^[a-z0-9]{3,}$/,
+      //     trigger: 'blur',
+      //     message: '请输入3位以上密码'
+      //   }
+      // ]
     }
 
     const formRef = ref<InstanceType<typeof ElForm>>()

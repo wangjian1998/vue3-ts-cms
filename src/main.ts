@@ -9,16 +9,23 @@ import hyRequest from './service'
 import 'normalize.css'
 import './assets/css/index.less'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+//表单验证插件z
+// import Validation from '@/components/rules'
+// import Validation from '@/components/FormRule'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
+debugger
+// app.config.globalProperties.$rules = Validation
 app.use(store)
 app.use(router)
 app.use(ElementPlus)
+// app.use(Validation)
 app.mount('#app')
+// console.log(Validation)
 
 // interface dataType {
 //   data: any
