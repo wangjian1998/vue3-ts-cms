@@ -1,4 +1,5 @@
 import HYRequest from './request'
+import LocalCache from '@/utils/cache'
 // import axios from 'axios'
 // axios.defaults.baseURL = '/api/'
 const hyRequest = new HYRequest({
@@ -8,9 +9,11 @@ const hyRequest = new HYRequest({
   timeout: 1000,
   interceptors: {
     requestInterceptor: (config) => {
-      const token = ''
+      const token = LocalCache.getCache('token')
       if (token) {
-        // config.headers.Authorization = `Bearer ${token}`
+        if (config && config?.headers) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
       }
       console.log('请求成功拦截')
       return config

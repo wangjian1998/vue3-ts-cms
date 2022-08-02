@@ -9,6 +9,7 @@ import hyRequest from './service'
 import 'normalize.css'
 import './assets/css/index.less'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import { setupStore } from './store'
 //表单验证插件z
 // import Validation from '@/components/rules'
 // import Validation from '@/components/FormRule'
@@ -18,9 +19,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-debugger
 // app.config.globalProperties.$rules = Validation
 app.use(store)
+setupStore()
 app.use(router)
 app.use(ElementPlus)
 // app.use(Validation)
