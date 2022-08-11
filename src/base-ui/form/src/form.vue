@@ -3,11 +3,15 @@
     <div>
       <slot name="header"></slot>
     </div>
-    <el-form :label-width="labelWidth">
+    <el-form :label-width="labelWidth" :rules="ruleData">
       <el-row>
         <template v-for="(item, i) in formItem" :key="i">
           <el-col v-bind="colWidth">
-            <el-form-item :label="item.label" :style="itemStyle">
+            <el-form-item
+              :label="item.label"
+              :style="itemStyle"
+              :prop="item.field"
+            >
               <template
                 v-if="item.type === 'input' || item.type === 'password'"
               >

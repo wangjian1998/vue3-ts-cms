@@ -4,7 +4,7 @@
       ><ArrowLeft v-show="!isFold" /><ArrowRight v-show="isFold"
     /></el-icon>
     <div class="content">
-      <NavBread></NavBread>
+      <avt-bread :breadList="breadList"></avt-bread>
       <div>
         <el-dropdown>
           <span class="el-dropdown-link">
@@ -28,12 +28,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
-import NavBread from './NavBread.vue'
+import AvtBread, { IBreadType } from '../../../base-ui/navBread'
+import { menuMpToBread } from '../../../utils/map-menus'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
-  components: { NavBread },
+  components: { AvtBread },
   emits: ['foldChange'],
   setup(props, { emit }) {
     const name = 'wj'
@@ -43,9 +45,18 @@ export default defineComponent({
       isFold.value = !isFold.value
       emit('foldChange', isFold.value)
     }
+
+    const breadList = computed(() => {
+      const store = useStore()
+      const route = useRoute()
+      const menuList = store.state.login.userMenus
+      const currentPath = route.path
+      return menuMpToBread(menuList, currentPath)
+    })
     return {
       isFold,
       name,
+      breadList,
       handleFoldClick
     }
   }

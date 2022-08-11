@@ -12,8 +12,6 @@
         :collapse="isCollapase"
         text-color="#b7bdc3"
         active-text-color="#0a60bd"
-        @open="handleOpen"
-        @close="handleClose"
       >
         <template v-for="item in menuList" :key="item.id">
           <template v-if="item.type === 1">

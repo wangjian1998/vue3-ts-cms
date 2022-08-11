@@ -21,7 +21,7 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 // import AvtForm from '@/base-ui/src/form.vue'
-import AvtForm, { IFormType, IForm } from '../../../../base-ui'
+import AvtForm, { IFormType, IForm } from '../../../../base-ui/form'
 
 export default defineComponent({
   components: { AvtForm },
@@ -33,12 +33,38 @@ export default defineComponent({
       sport: '',
       time: ''
     })
+    // const ruleData = reactive({
+    //   name: [
+    //     { required: true, trigger: 'blur', message: '请输入用户名' },
+    //     {
+    //       pattern: /^[a-z0-9]{5,10}$/,
+    //       trigger: 'blur',
+    //       message: '用户名长度为5~10个字符'
+    //     }
+    //   ],
+    //   password: [
+    //     { required: true, trigger: 'blur', message: '请输入密码' },
+    //     {
+    //       pattern: /^[a-z0-9]{3,}$/,
+    //       trigger: 'blur',
+    //       message: '请输入3位以上密码'
+    //     }
+    //   ]
+    // })
     const fromItem: IFormType[] = [
       {
         type: 'input',
         placeholder: '请输入内容',
         label: '用户名',
-        field: 'name'
+        field: 'name',
+        rules: [
+          { required: true, trigger: 'blur', message: '请输入用户名' },
+          {
+            pattern: /^[a-z0-9]{5,10}$/,
+            trigger: 'blur',
+            message: '用户名长度为5~10个字符'
+          }
+        ]
       },
       {
         type: 'password',

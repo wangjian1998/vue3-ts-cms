@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
+import { IBreadType } from '@/base-ui/navBread/index'
 
 let firstRoute: any = null
 
@@ -34,11 +35,23 @@ export function mapMenuToRoute(userMenus: any[]): RouteRecordRaw[] {
   return routes
 }
 
-export function menuMapToRoute(menuList: any[], currentPath: string): any {
+export function menuMpToBread(menuList: any[], currentPath: string) {
+  const breadList: IBreadType[] = []
+  menuMapToRoute(menuList, currentPath, breadList)
+  return breadList
+}
+
+export function menuMapToRoute(
+  menuList: any[],
+  currentPath: string,
+  breadList?: IBreadType[]
+): any {
   for (const key of menuList) {
     if (key.type === 1) {
       const findMenu = menuMapToRoute(key.children ?? [], currentPath)
       if (findMenu) {
+        breadList?.push({ name: key.name })
+        breadList?.push({ name: findMenu.name })
         return findMenu
       }
     } else if (key.type === 2 && currentPath === key.url) {
